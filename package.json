@@ -9,6 +9,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/jest/bin/jest.js --runInBand",
     "start": "nest start",
+    "start:prod": "node dist/main.js",
     "start:dev": "nest start --watch",
     "build": "nest build",
     "typeorm": "typeorm-ts-node-commonjs",
