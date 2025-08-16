@@ -13,17 +13,14 @@ import { DashboardModule } from './dashboard/dashboard.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.POSTGRES_HOST || 'localhost',
-      port: parseInt(process.env.POSTGRES_PORT, 10) || 5432,
-      username: process.env.POSTGRES_USER || 'postgres',
-      password: process.env.POSTGRES_PASSWORD || 'password',
-      database: process.env.POSTGRES_DB || 'maria_luisa_db',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      url: process.env.DATABASE_URL, // Render y local .env
+      autoLoadEntities: true,        // carga entidades automáticamente
+      synchronize: false,            // true solo en desarrollo
+      ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : undefined,
     }),
     PacienteModule,
     HistoriaClinicaModule,
-    ProfesionalSaludModule, 
+    ProfesionalSaludModule,
     TratamientoModule,
     FacturaModule,
     UsuarioModule,
