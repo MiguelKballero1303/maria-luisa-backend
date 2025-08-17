@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { AppDataSource } from './config/data-source';
-
 async function bootstrap() {
   if (process.env.NODE_ENV === 'production') {
     try {
@@ -13,11 +12,17 @@ async function bootstrap() {
       process.exit(1);
     }
   }
-
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: [
+      'https://sistema-salud-frontend.onrender.com',
+    ],
+    credentials: true,
+  });
+
   const port = process.env.PORT || 3000;
   await app.listen(port);
 
-  console.log(`🚀 App running on port ${port}`);
+  console.log(`App running on port ${port}`);
 }
 bootstrap();
